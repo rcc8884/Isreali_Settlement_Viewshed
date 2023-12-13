@@ -753,6 +753,45 @@ ui = fluidPage(
              fluid = TRUE,
              div(
                class = "custom-text-container",
+               
+               h3("Data"),
+               
+               p("Data used and collected was from the Jerusalem Statistical Yearbook 2023 (https://jerusaleminstitute.org.il/en/yearbook/#/4235)
+                 and the Palestinian Statistical Yearbook 2023 (https://www.pcbs.gov.ps/Downloads/book2669.pdf). Settlement boundary data has 
+                 been collected from Open Street Map (https://www.openstreetmap.org/#map=4/38.01/-95.84) and Google Earth 
+                 (https://earth.google.com) with the original database for Israeli settlements recognized by the Israeli government 
+                 (https://www.kaggle.com/datasets/ilcbs/israeli-settlements/) provided by the Israel Central Bureau of Statistics. NASA Earth 
+                 Data Search (https://search.earthdata.nasa.gov/search/) supplied the DEM files before being combined using QGIS 
+                 (https://qgis.org/en/site/)."),
+               
+               h3("Code"),
+               
+               p("The original code was based on the article ViewShedR: a new open-source tool for cumulative, subtractive, and elevated 
+                 line-of-sight analysis (https://royalsocietypublishing.org/doi/epdf/10.1098/rsos.221333) with additional inputs from OpenAI's
+                 ChatGPT (https://chat.openai.com/)."),
+               
+               h3("Images"),
+               
+               p("The landing page image credit goes to Ammar Awad @ Reuters"),
+               
+               h3("Sources"),
+               
+               p("Most of the history presented in the writing, both the Historical Context and Brief History of Israeli Settlements, is common
+                 knowledge. However, some other sources used in the background were Occupation, Sight, Landscape: Visibility and the Normalization of 
+                 Israeli Settlements by Jakub Zahora and Eyal Weizman's book Hollow Land. The phrase from the UN chief was pulled from an AlJazeera
+                 article earlier this year (https://www.aljazeera.com/news/2023/6/20/un-chief-tells-israel-to-halt-illegal-settlements-in-palestine).
+                 More information on the Sharon Plan (https://ecf.org.il/issues/issue/245) and Drobles Plan 
+                 (https://israelpolicyforum.org/west-bank-settlements-explained/) were provided by the Economic Cooperation Foundation and Israel
+                 Policy Forum. Reporting on the US-Israel tensions have been reported on extensively by outlets such as the AP 
+                 (https://apnews.com/article/israel-palestinians-settlements-west-bank-biden-49c4788ffc5f5ee41d5c48365ac5395b). The statistics for 
+                 casualties and displacement over the past couple of years including the ongoing conflict are from The Office of the United Nations
+                 High Commissioner for Human Rights 
+                 (https://reliefweb.int/report/occupied-palestinian-territory/acaps-thematic-report-israelpalestine-current-situation-and-anticipated-impacts-crisis-west-bank-24-november-2023 
+                 and https://reliefweb.int/report/occupied-palestinian-territory/hostilities-gaza-strip-and-israel-flash-update-48-enarhe). I have 
+                 also included recent war numbers from Reuters 
+                 (https://www.reuters.com/world/middle-east/how-many-palestinians-have-died-gaza-war-how-will-counting-continue-2023-12-06/)
+                 and AlJezerra 
+                 (https://www.aljazeera.com/gallery/2023/12/8/photos-death-toll-continues-to-rise-in-gaza-amid-widening-israeli-attacks).")
              )
     )
   )
@@ -915,7 +954,7 @@ server <- function(input, output, session) {
         pal_C = colorNumeric(cpal_C, val_C, na.color = "transparent")
         leaflet() %>%
           addProviderTiles('Esri.WorldImagery') %>%
-          addRasterImage(sumLayers, colors = pal_C(0:maxsumLayers), opacity = 0.5)%>%
+          addRasterImage(sumLayers, colors = pal_C(0:maxsumLayers), opacity = 0.9)%>%
           addRasterImage(LOSLayers[[IvalidLayerIdx]], colors = cpal_inv, opacity = 0.8) %>%
           addLegend(colors = pal_C(0:maxsumLayers),labels =(0:maxsumLayers), title = "Number of Settlements")%>%
           addMarkers(data=ANTS.df[ANT_indeces_C(),], icon = ~ IconsVis[[1]],
